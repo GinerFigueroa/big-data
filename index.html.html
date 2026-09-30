@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Resumen Big Data · UNTELS</title>
+<style>
+:root{--bg:#f3f6f8;--surface:#fff;--text:#14232e;--muted:#52667a;--accent:#0b6e8a;--line:#d5dee6;--code:#e8eef3;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a22;--surface:#16252f;--text:#e6eef4;--muted:#9bb0c0;--accent:#4cc3e0;--line:#27404f;--code:#1d3340}}
+:root[data-theme="dark"]{--bg:#0f1a22;--surface:#16252f;--text:#e6eef4;--muted:#9bb0c0;--accent:#4cc3e0;--line:#27404f;--code:#1d3340}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--surface);border-bottom:1px solid var(--line);z-index:10;display:flex;gap:4px;padding:8px 12px;overflow-x:auto}
+nav a{color:var(--muted);text-decoration:none;padding:8px 14px;border-radius:6px;white-space:nowrap;font-size:.92rem}
+nav a:hover,nav a:focus-visible,nav a.on{background:var(--accent);color:#fff;outline:none}
+header{max-width:860px;margin:0 auto;padding:40px 20px 8px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:2rem;margin:0 0 6px}
+header p{color:var(--muted);margin:0}
+main{max-width:860px;margin:0 auto;padding:0 20px 60px}
+section{margin-top:36px}
+h2{font-family:Georgia,serif;font-size:1.5rem;border-bottom:2px solid var(--accent);padding-bottom:6px}
+h3{font-size:1.05rem;margin:22px 0 6px;color:var(--accent)}
+ul{padding-left:20px}li{margin:4px 0}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:4px 18px 14px;margin-top:14px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--surface)}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--code)}
+code,pre{background:var(--code);border-radius:4px;font-family:Consolas,Menlo,monospace;font-size:.88rem}
+code{padding:1px 5px}pre{padding:12px;overflow-x:auto}
+</style>
+</head>
+<body>
+<nav id="menu">
+<a href="#v7">Las 7V</a>
+<a href="#inkashop">Caso InkaShop</a>
+<a href="#aplicaciones">Aplicaciones y beneficios</a>
+<a href="#s3">Sesión 3: Docker</a>
+<a href="#s4">Sesión 4: Compose</a>
+</nav>
+<header>
+<h1>Resumen de Big Data</h1>
+<p>UNTELS · Mtra. Myrna Manco Caycho · Sesiones 1 a 4</p>
+</header>
+<main>
+
+<section id="v7">
+<h2>Las 7V del Big Data</h2>
+<div class="scroll"><table>
+<tr><th>Grupo</th><th>V</th><th>Idea clave</th></tr>
+<tr><td rowspan="3">3V de Laney (2001)</td><td>Volumen</td><td>Cantidad masiva de datos que requiere almacenamiento económico y escalable.</td></tr>
+<tr><td>Velocidad</td><td>Ritmo de generación; gana peso el análisis en tiempo real.</td></tr>
+<tr><td>Variedad</td><td>Múltiples formatos y fuentes; crecen los datos no estructurados.</td></tr>
+<tr><td rowspan="2">IBM</td><td>Veracidad</td><td>Datos fiables y de calidad; evita duplicados, errores y ruido.</td></tr>
+<tr><td>Valor</td><td>Que los datos generen un beneficio real para el negocio.</td></tr>
+<tr><td rowspan="2">Gestión y comprensión</td><td>Variabilidad</td><td>Los datos cambian: estacionalidad y cambios de patrones de consumo.</td></tr>
+<tr><td>Visualización</td><td>Sintetizar datos en gráficos y dashboards. "Si no se entiende, no se usa".</td></tr>
+</table></div>
+<p>En este modelo no se incluye la "Viabilidad".</p>
+</section>
+
+<section id="inkashop">
+<h2>Caso aplicativo: InkaShop</h2>
+<p>Cadena retail peruana con 45 tiendas, más de 2 millones de clientes, 120,000 transacciones diarias y un presupuesto aprobado de S/. 2,000,000. Usa Excel y SQL Server, y sus reportes tardan de 3 a 5 días.</p>
+
+<h3>Por qué es un problema de Big Data</h3>
+<ul>
+<li><b>Volumen:</b> la escala supera a las hojas de cálculo y a las bases relacionales.</li>
+<li><b>Velocidad:</b> Falabella y Ripley analizan en tiempo real; InkaShop no.</li>
+<li><b>Variedad:</b> redes sociales, logs de la app, correos y sensores IoT quedan sin explotar.</li>
+<li>Falla entre las etapas de <b>Almacenamiento</b> y <b>Tratamiento</b>, lo que anula la Representación.</li>
+</ul>
+
+<h3>Clasificación de fuentes</h3>
+<div class="scroll"><table>
+<tr><th>Fuente</th><th>Estructura</th><th>Origen</th></tr>
+<tr><td>Transacciones POS</td><td>Estructurado</td><td>Transaccional</td></tr>
+<tr><td>Redes sociales</td><td>No estructurado</td><td>Producido por personas</td></tr>
+<tr><td>App móvil</td><td>Semi / no estructurado</td><td>Marketing web</td></tr>
+<tr><td>Sensores IoT</td><td>Semiestructurado</td><td>Máquina a máquina</td></tr>
+<tr><td>E-mails de clientes</td><td>No estructurado</td><td>Producido por personas</td></tr>
+<tr><td>Sistema de logística</td><td>Estructurado</td><td>Transaccional / M2M</td></tr>
+</table></div>
+
+<h3>Ciclo de gestión propuesto</h3>
+<div class="box">
+<ul>
+<li><b>Captura:</b> Apache Flume, Kafka, APIs REST, conectores JDBC y web scraping.</li>
+<li><b>Almacenamiento:</b> Data Lake en Hadoop (HDFS), NoSQL (MongoDB) y Data Warehouse con Data Marts.</li>
+<li><b>Tratamiento:</b> Apache Spark, Python o R y Machine Learning. Batch para históricos y streaming para alertas.</li>
+<li><b>Representación:</b> dashboards en tiempo real y mapas de calor.</li>
+</ul></div>
+
+<h3>Caso de uso: demanda navideña</h3>
+<p>Se combinan 5 años de POS, stock logístico, wishlist de la app y tendencias en redes. Spark y Python calculan la velocidad de venta por ciudad y emiten alertas de reabastecimiento. Beneficios: menos quiebres de stock, menor costo de inventario y despachos proactivos.</p>
+
+<h3>Modelado, gobernanza y ética</h3>
+<ul>
+<li><b>Niveles de modelado:</b> conceptual (directivo), lógico (analítico) y físico (técnico).</li>
+<li><b>Tipo de modelo:</b> NoSQL documental para el catálogo, relacional (ACID) para pagos y dimensional (estrella) para análisis de ventas.</li>
+<li><b>Gobernanza:</b> Comité de Datos, Data Stewards, diccionario único y linaje con Apache Atlas.</li>
+<li><b>Ética y privacidad:</b> anonimización, cifrado, cumplimiento de la Ley N° 29733 y centro de preferencias de privacidad.</li>
+</ul>
+</section>
+
+<section id="aplicaciones">
+<h2>Aplicaciones y beneficios</h2>
+<h3>Casos reales</h3>
+<ul>
+<li><b>Retail:</b> Amazon usa entrega predictiva y optimiza precios cada 10 minutos. Zara detecta tendencias en tiempo real.</li>
+<li><b>Salud:</b> el mapa de la Universidad Johns Hopkins monitoreó la pandemia de coronavirus.</li>
+<li><b>Energía:</b> predicción de precios en el mercado eléctrico y sistemas expertos de red (SEPS) para estimar fallas.</li>
+</ul>
+<h3>Beneficios para la empresa</h3>
+<ul>
+<li>Agilidad y eficiencia operativa.</li>
+<li>Mejor experiencia del cliente.</li>
+<li>Nuevos modelos de negocio.</li>
+<li>Decisiones basadas en datos.</li>
+<li>Cultura de innovación.</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2>Sesión 3: Ecosistema Big Data y Docker</h2>
+<h3>Pilares tecnológicos</h3>
+<ul>
+<li><b>Almacenamiento distribuido:</b> HDFS.</li>
+<li><b>Procesamiento:</b> Spark (en memoria) y Flink (streaming).</li>
+<li><b>Orquestación de flujos:</b> Apache Airflow para pipelines ETL.</li>
+<li><b>Contenedores:</b> Docker y Kubernetes.</li>
+</ul>
+<h3>Máquinas virtuales vs. contenedores</h3>
+<div class="scroll"><table>
+<tr><th></th><th>Máquina virtual</th><th>Contenedor Docker</th></tr>
+<tr><td>Sistema operativo</td><td>Uno completo por VM</td><td>Comparte el kernel del host</td></tr>
+<tr><td>Recursos</td><td>Alto consumo de CPU, RAM y disco</td><td>Ligero y rápido</td></tr>
+<tr><td>Mediador</td><td>Hipervisor</td><td>Motor de Docker</td></tr>
+</table></div>
+<h3>Conceptos</h3>
+<ul>
+<li><b>Imagen:</b> plantilla de solo lectura, como una "clase".</li>
+<li><b>Contenedor:</b> instancia en ejecución, como un "objeto".</li>
+<li><b>Docker Hub:</b> registro público de imágenes.</li>
+<li><b>VS Code:</b> editor recomendado, con extensión de Docker.</li>
+</ul>
+<h3>Comandos básicos</h3>
+<pre>docker pull &lt;imagen&gt;
+docker images
+docker run -it -d &lt;imagen&gt;
+docker ps
+docker stop &lt;ID&gt;   /   docker rm &lt;ID&gt;
+docker exec -it &lt;ID&gt; &lt;comando&gt;</pre>
+<h3>Dockerfile</h3>
+<p>Receta para construir una imagen. Directivas: <code>FROM</code>, <code>WORKDIR</code>, <code>COPY</code>, <code>RUN</code>, <code>EXPOSE</code>.</p>
+<pre>docker build -t mi-web-app:v1 .
+docker run -p 8081:80 mi-web-app:v1</pre>
+<p>Luego se accede desde <code>localhost:8081</code>.</p>
+</section>
+
+<section id="s4">
+<h2>Sesión 4: Orquestación con Docker Compose</h2>
+<p>Ejecutar <code>docker run</code> a mano para cada contenedor es propenso a errores. Docker Compose define y ejecuta aplicaciones multi-contenedor desde un solo archivo YAML.</p>
+<h3>Propósito</h3>
+<ul>
+<li><b>Automatizar</b> el inicio y el ciclo de vida de los servicios.</li>
+<li><b>Simplificar</b> la comunicación mediante redes virtuales.</li>
+<li><b>Reproducir</b> el mismo entorno en desarrollo, pruebas y producción.</li>
+</ul>
+<h3>Directivas de docker-compose.yml</h3>
+<div class="scroll"><table>
+<tr><th>Directiva</th><th>Función</th></tr>
+<tr><td>version</td><td>Sintaxis (las diapositivas usan 3.8)</td></tr>
+<tr><td>services</td><td>Define cada contenedor</td></tr>
+<tr><td>build / image</td><td>Construir desde Dockerfile o usar imagen existente</td></tr>
+<tr><td>ports</td><td>Mapea puerto del host al del contenedor</td></tr>
+<tr><td>environment</td><td>Variables de entorno</td></tr>
+<tr><td>depends_on</td><td>Orden de inicio</td></tr>
+<tr><td>networks / volumes</td><td>Redes y persistencia (opcionales)</td></tr>
+</table></div>
+<p>YAML exige indentación correcta: un espacio mal puesto genera error.</p>
+<h3>Comandos</h3>
+<pre>docker compose up        # añade --build para reconstruir
+docker compose down
+docker compose ps
+docker compose logs</pre>
+<h3>Práctica: Flask + Redis</h3>
+<ul>
+<li>El servicio <b>web</b> se construye con un Dockerfile y <code>requirements.txt</code>.</li>
+<li>El servicio <b>db</b> usa la imagen <code>redis:alpine</code>.</li>
+<li><code>app.py</code> incrementa un contador con <code>redis.incr('hits')</code>.</li>
+<li>Se accede por el puerto 5000 y muestra "¡Hola Mundo! Visto X veces".</li>
+</ul>
+</section>
+</main>
+<script>
+var links=document.querySelectorAll('#menu a');
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-30% 0px -60% 0px'});
+document.querySelectorAll('section').forEach(function(s){obs.observe(s)});
+</script>
+</body>
+</html>
